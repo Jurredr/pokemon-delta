@@ -2,7 +2,7 @@ import p5 from 'p5'
 import blockResizing from './util/resize-blocker'
 import blockIE from './util/ie-blocker'
 import DeltaScreen from './graphics/DeltaScreen'
-import testmap from './world/maps/testmap'
+import testmap from './world/map/maps/testmap'
 import World from './world/World'
 import PlayerEntity from './world/entity/PlayerEntity'
 import Camera from './graphics/Camera'
@@ -23,7 +23,10 @@ const p5Instance = new p5((p5Sketch) => {
 
         // Initialize player & their world
         World.map = new Map(testmap)
-        const player = new PlayerEntity()
+        const player = new PlayerEntity(
+            'testID',
+            new Tileset(assets.img.entities.boy_run.png, 32, 48)
+        )
         World.entities.push(player)
 
         // Initialize camera

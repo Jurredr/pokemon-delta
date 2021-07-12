@@ -1,4 +1,4 @@
-import DeltaScreen from '../graphics/DeltaScreen'
+import DeltaScreen from '../../graphics/DeltaScreen'
 
 export default class Map {
     // name

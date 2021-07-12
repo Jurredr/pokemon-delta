@@ -46,12 +46,12 @@ const DeltaScreen = {
     },
 
     // Get the screen width with zoom factor
-    getScaledWidth() {
+    scaledWidth() {
         return DeltaScreen.p5Sketch.width / DeltaScreen.zoom
     },
 
     // Get the screen width with zoom factor
-    getScaledHeight() {
+    scaledHeight() {
         return DeltaScreen.p5Sketch.height / DeltaScreen.zoom
     },
 }

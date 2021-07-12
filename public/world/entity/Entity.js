@@ -7,7 +7,9 @@ export default class Entity {
         this.solid = solid
     }
 
-    onInteract() {
+    update(deltaTime) {}
 
-    }
+    draw() {}
+
+    onInteract() {}
 }

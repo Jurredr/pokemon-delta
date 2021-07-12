@@ -42,17 +42,7 @@ const DeltaScreen = {
         sWidth = dWidth,
         sHeight = dHeight
     ) {
-        this.sketch.image(
-            img,
-            dx,
-            dy,
-            dWidth,
-            dHeight,
-            sx,
-            sy,
-            sWidth,
-            sHeight
-        )
+        this.sketch.image(img, dx, dy, dWidth, dHeight, sx, sy, sWidth, sHeight)
     },
 
     // Get the screen width with zoom factor

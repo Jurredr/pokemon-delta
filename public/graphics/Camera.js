@@ -6,7 +6,7 @@ const Camera = {
     init(x, y, follow) {
         Camera.x = x
         Camera.y = y
-        Camera.x = follow
+        Camera.follow = follow
     }
 }
 

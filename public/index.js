@@ -22,6 +22,7 @@ const p5Instance = new p5((p5Sketch) => {
         // Set up the screen
         DeltaScreen.init(p5Sketch)
         DeltaScreen.zoom *= window.devicePixelRatio
+        window.onresize()
 
         // Initialize player & their world
         World.init(new Map(testmap))

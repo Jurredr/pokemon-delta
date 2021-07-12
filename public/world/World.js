@@ -22,11 +22,11 @@ const World = {
     },
 
     // Change the current map
-    changeMap(map) {
-        this.currentMap = map
+    changeMap(currentMap) {
+        this.currentMap = currentMap
         this.worldRender = DeltaScreen.p5Sketch.createGraphics(
-            map.width * 32,
-            map.height * 32
+            currentMap.width * 32,
+            currentMap.height * 32
         )
     },
 
@@ -36,12 +36,12 @@ const World = {
         if (Camera.follow) {
             const follow = Camera.follow
             Camera.x =
-                follow.position.x * this.currentMap.width +
+                follow.position.x * this.currentMap.tileset.totalWidth +
                 follow.position.imgOffsetX -
                 DeltaScreen.scaledWidth() / 2 +
                 16
             Camera.y =
-                follow.position.y * this.currentMap.heigth +
+                follow.position.y * this.currentMap.tileset.totalHeight +
                 follow.position.imgOffsetY -
                 DeltaScreen.scaledHeight() / 2 +
                 16
@@ -56,12 +56,12 @@ const World = {
     draw() {
         // We really need a way to wait for the textures to be loaded
         if (!this.fullyDrawn && this.currentMap.tileset.width !== undefined) {
-            this.worldRender.background(0)
-            this.currentMap.draw()
             this.fullyDrawn = true
+            this.worldRender.background(0)
+            this.currentMap.draw(this.worldRender)
         }
 
-        DeltaScreen.drawImage(this.worldRender, -Camera.x, -Camera.y)
+        DeltaScreen.image(this.worldRender, -Camera.x, -Camera.y)
 
         this.entities.forEach((entity) => {
             entity.draw()

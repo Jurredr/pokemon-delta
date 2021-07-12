@@ -16,8 +16,8 @@ export default class Tileset {
     }
 
     // Draw a tile of the Tileset onto the screen
-    drawTile(x, y, tx, ty) {
-        DeltaScreen.drawImage(
+    drawTile(x, y, tx, ty, screen = DeltaScreen) {
+        screen.image(
             this.image,
             x,
             y,

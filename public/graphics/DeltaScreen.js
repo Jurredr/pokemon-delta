@@ -2,9 +2,6 @@ const DeltaScreen = {
     // The P5 sketch
     p5Sketch: undefined,
 
-    // The zoom factor
-    zoom: 1.5,
-
     // Initialize the screen
     init(p5Sketch) {
         // Create canvas
@@ -12,12 +9,12 @@ const DeltaScreen = {
         const canvas = p5Sketch.createCanvas(200, 200).elt
 
         // Sketch configuration
-        p5Sketch.pixelDensity(1)
         const context = canvas.getContext('2d')
         context.mozImageSmoothingEnabled = false
         context.webkitImageSmoothingEnabled = false
         context.msImageSmoothingEnabled = false
         context.imageSmoothingEnabled = false
+        p5Sketch.pixelDensity(1)
     },
 
     // Draw the screen background
@@ -26,12 +23,12 @@ const DeltaScreen = {
     },
 
     // Draw an image
-    drawImage(img, x, y, width = img.width, height = img.height) {
+    image(img, x, y, width = img.width, height = img.height) {
         this.p5Sketch.image(img, Math.floor(x), Math.floor(y), width, height)
     },
 
     // Draw an image
-    drawImage(
+    image(
         img,
         dx,
         dy,
@@ -54,6 +51,9 @@ const DeltaScreen = {
     scaledHeight() {
         return this.p5Sketch.height / this.zoom
     },
+
+    // The zoom factor
+    zoom: 1.5,
 }
 
 export default DeltaScreen

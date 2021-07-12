@@ -1,11 +1,13 @@
 export default class Entity {
     // id
+    // solid
 
-    constructor(id) {
+    constructor(id, solid) {
         this.id = id
+        this.solid = solid
     }
 
     onInteract() {
-        
+
     }
 }

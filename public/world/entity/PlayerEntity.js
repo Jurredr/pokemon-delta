@@ -1,11 +1,10 @@
 import Entity from './Entity'
 
 export default class PlayerEntity extends Entity {
-    // id
     // map
 
     constructor(id, map) {
-        super(id)
+        super(id, true)
 
         this.map = map
     }

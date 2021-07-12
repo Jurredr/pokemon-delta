@@ -2,10 +2,10 @@ import Camera from '../graphics/Camera'
 import DeltaScreen from '../graphics/DeltaScreen'
 
 const World = {
-    currentMap,
+    currentMap: undefined,
     entities: [],
-    worldRender,
-    fullyDrawn,
+    worldRender: undefined,
+    fullyDrawn: undefined,
 
     // Initialize the world
     init(currentMap) {
@@ -13,7 +13,7 @@ const World = {
         this.entities = []
 
         // Create the render of the world
-        this.worldRender = DeltaScreen.sketch.createGraphics(
+        this.worldRender = DeltaScreen.p5Sketch.createGraphics(
             currentMap.width * 32,
             currentMap.height * 32
         )
@@ -24,7 +24,7 @@ const World = {
     // Change the current map
     changeMap(map) {
         this.currentMap = map
-        this.worldRender = DeltaScreen.sketch.createGraphics(
+        this.worldRender = DeltaScreen.p5Sketch.createGraphics(
             map.width * 32,
             map.height * 32
         )

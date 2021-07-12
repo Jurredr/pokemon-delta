@@ -8,7 +8,7 @@ const DeltaScreen = {
     // Initialize the screen
     init(p5Sketch) {
         // Create canvas
-        DeltaScreen.p5Sketch = p5Sketch
+        this.p5Sketch = p5Sketch
         const canvas = p5Sketch.createCanvas(200, 200).elt
 
         // Sketch configuration
@@ -21,8 +21,8 @@ const DeltaScreen = {
     },
 
     // Draw the screen background
-    drawBackground(color) {
-        DeltaScreen.p5Sketch.background(color)
+    draw() {
+        this.p5Sketch.background(0)
     },
 
     // Draw an image
@@ -42,17 +42,17 @@ const DeltaScreen = {
         sWidth = dWidth,
         sHeight = dHeight
     ) {
-        this.sketch.image(img, dx, dy, dWidth, dHeight, sx, sy, sWidth, sHeight)
+        this.p5Sketch.image(img, dx, dy, dWidth, dHeight, sx, sy, sWidth, sHeight)
     },
 
     // Get the screen width with zoom factor
     scaledWidth() {
-        return DeltaScreen.p5Sketch.width / DeltaScreen.zoom
+        return this.p5Sketch.width / this.zoom
     },
 
     // Get the screen width with zoom factor
     scaledHeight() {
-        return DeltaScreen.p5Sketch.height / DeltaScreen.zoom
+        return this.p5Sketch.height / this.zoom
     },
 }
 

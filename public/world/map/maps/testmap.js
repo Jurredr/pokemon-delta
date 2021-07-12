@@ -1,6 +1,12 @@
+import assets from '../../../assets/**/*.*'
+
 const testmap = {
     name: 'test',
-    tilesets: [assets.img.tilesets.outside.png],
+    tileset: {
+        src: assets.img.tilesets.outside.png,
+        totalWidth: 32,
+        totalHeight: 32,
+    },
     layout: [
         [
             [1, 1, 1, 1, 1],

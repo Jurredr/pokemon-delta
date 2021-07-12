@@ -1,8 +1,9 @@
 import DeltaScreen from '../../graphics/DeltaScreen'
+import Tileset from '../../graphics/Tileset'
 
 export default class Map {
     // name
-    // tilesets
+    // tileset
     // layout
     // width
     // heigth
@@ -14,12 +15,12 @@ export default class Map {
         this.name = mapData.name
 
         // Array of tilesets to use
-        this.tilesets = mapData.tilesets
+        this.tileset = new Tileset(mapData.tileset.src, mapData.tileset.totalWidth, mapData.tileset.totalHeight)
 
         // Layout of the tiles
         this.layout = mapData.layout
-        this.width = layout[0][0].length
-        this.height = layout[0].length
+        this.width = this.layout[0][0].length
+        this.height = this.layout[0].length
 
         // Array of static entities
         this.entities = mapData.entities
@@ -29,7 +30,7 @@ export default class Map {
     }
 
     getTile(x, y, layer) {
-        if (layer < 0 || layer >= this.map.length) {
+        if (layer < 0 || layer >= this.layout.length) {
             return 0
         }
 
@@ -41,7 +42,7 @@ export default class Map {
     }
 
     isSolid(x, y) {
-        for (var layer = 0; layer < this.map.length; layer++) {
+        for (let layer = 0; layer < this.layout.length; layer++) {
             if (this.getTile(layer, x, y) === 948) {
                 return true
             }
@@ -53,23 +54,35 @@ export default class Map {
     draw() {
         const screen = DeltaScreen
 
-        for (var layer = 0; layer < this.layout.length; layer++) {
-            const tile = this.getTile(tx, ty, layer)
+        for (let x = 0; x < this.width; x++) {
+            for (let y = 0; y < this.height; y++) {
+                const tx = x * this.tileset.totalWidth
+                const ty = y * this.tileset.totalHeight
 
-            // Don't draw empty tiles
-            if (tile === 0) continue
+                for (let layer = 0; layer < this.layout.length; layer++) {
+                    const tile = this.getTile(x, y, layer)
 
-            const tileX = tile % this.tileset.width
-            const tileY = Math.floor(tile / this.tileset.width)
+                    // Don't draw empty tiles
+                    if (tile === 0) continue
 
-            this.tileset.drawTile(x, y, tileX, tileY, screen)
-        }
+                    const tileX = tile % this.tileset.width
+                    const tileY = Math.floor(tile / this.tileset.width)
 
-        // Temporary indicator for solid tiles
-        if (this.isSolid(tx, ty)) {
-            screen.noFill()
-            screen.stroke(255, 0, 0)
-            screen.rect(x, y, this.tileset.tileWidth, this.tileset.tileHeight)
+                    this.tileset.drawTile(tx, ty, tileX, tileY, screen)
+                }
+
+                // Temporary indicator for solid tiles
+                if (this.isSolid(x, y)) {
+                    screen.noFill()
+                    screen.stroke(255, 0, 0)
+                    screen.rect(
+                        tx,
+                        ty,
+                        this.tileset.totalWidth,
+                        this.tileset.totalHeight
+                    )
+                }
+            }
         }
     }
 }

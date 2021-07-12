@@ -1,7 +1,7 @@
 import DeltaScreen from '../graphics/DeltaScreen'
 import EntityMovement from '../world/entity/components/EntityMovement'
 
-export default class UserMovement {
+export default class UserMovementController {
     constructor(movement) {
         /** @type {EntityMovement} */
         this.movement = movement

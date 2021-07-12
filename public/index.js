@@ -6,14 +6,16 @@ import testmap from './world/map/maps/testmap'
 import World from './world/World'
 import PlayerEntity from './world/entity/PlayerEntity'
 import Camera from './graphics/Camera'
+import Map from './world/map/Map'
+import Tileset from './graphics/Tileset'
+
+import assets from './assets/**/*.*'
 
 // Block internet explorer
 blockIE()
 
 // Initialize P5
 const p5Instance = new p5((p5Sketch) => {
-    let world
-
     p5Sketch.setup = () => {
         p5Sketch.frameRate(60)
 
@@ -22,11 +24,13 @@ const p5Instance = new p5((p5Sketch) => {
         DeltaScreen.zoom *= window.devicePixelRatio
 
         // Initialize player & their world
-        World.map = new Map(testmap)
-        const player = new PlayerEntity(
-            'testID',
-            new Tileset(assets.img.entities.boy_run.png, 32, 48)
+        World.init(new Map(testmap))
+        const playerTileset = new Tileset(
+            assets.img.entities.boy_run.png,
+            32,
+            48
         )
+        const player = new PlayerEntity('testID', playerTileset)
         World.entities.push(player)
 
         // Initialize camera
@@ -34,13 +38,13 @@ const p5Instance = new p5((p5Sketch) => {
     }
 
     p5Sketch.draw = () => {
-        const delta = p5Sketch.deltaTime
+        const deltaTime = p5Sketch.deltaTime
 
-        world.update(delta)
-        p5Sketch.scale(Screen.zoom)
+        World.update(deltaTime)
+        p5Sketch.scale(DeltaScreen.zoom)
 
         DeltaScreen.draw()
-        world.draw()
+        World.draw()
     }
 })
 

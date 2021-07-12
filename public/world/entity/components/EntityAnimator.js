@@ -1,8 +1,7 @@
 import Camera from '../../../graphics/Camera'
 import DeltaScreen from '../../../graphics/DeltaScreen'
-import World from '../../World'
 
-export default class Animator {
+export default class EntityAnimator {
     // running
     // position
     // x
@@ -11,7 +10,7 @@ export default class Animator {
     // frameCount
     // fps
 
-    constructor(position, y, tileset, fps = 1) {
+    constructor(position, tileset, y, fps = 1) {
         this.running = true
         this.position = position
         this.x = 0
@@ -23,7 +22,7 @@ export default class Animator {
 
     draw() {
         if (this.running) {
-            this.frameCount += DeltaScreen.sketch.deltaTime
+            this.frameCount += DeltaScreen.p5Sketch.deltaTime
             if (this.frameCount >= 1000 / this.fps) {
                 this.frameCount -= 1000 / this.fps
 

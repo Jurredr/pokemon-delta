@@ -1,6 +1,6 @@
 import World from '../../World'
 
-export default class Movement {
+export default class EntityMovement {
     // animator
     // position
     // speed

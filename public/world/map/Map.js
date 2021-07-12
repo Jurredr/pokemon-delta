@@ -1,5 +1,7 @@
 import DeltaScreen from '../../graphics/DeltaScreen'
 import Tileset from '../../graphics/Tileset'
+import Position from '../components/Position'
+import Entity from '../entity/Entity'
 
 export default class Map {
     // name
@@ -15,7 +17,11 @@ export default class Map {
         this.name = mapData.name
 
         // Array of tilesets to use
-        this.tileset = new Tileset(mapData.tileset.src, mapData.tileset.totalWidth, mapData.tileset.totalHeight)
+        this.tileset = new Tileset(
+            mapData.tileset.src,
+            mapData.tileset.totalWidth,
+            mapData.tileset.totalHeight
+        )
 
         // Layout of the tiles
         this.layout = mapData.layout
@@ -23,7 +29,17 @@ export default class Map {
         this.height = this.layout[0].length
 
         // Array of static entities
-        this.entities = mapData.entities
+        this.entities = []
+        mapData.entities.forEach((entity) => {
+            const entityObject = new Entity(
+                'entityID',
+                entity.type,
+                entity.solid,
+                new Position(entity.x, entity.y)
+            )
+            this.entities.push(entityObject)
+        })
+        console.log(this.entities)
 
         // BGM
         this.music = mapData.music
@@ -41,9 +57,16 @@ export default class Map {
         return 0
     }
 
+    isEntity(x, y) {
+        for (let entity of this.entities) {
+            if (entity.position.x === x && entity.position.y === y) return entity
+        }
+        return null
+    }
+
     isSolid(x, y) {
         for (let layer = 0; layer < this.layout.length; layer++) {
-            if (this.getTile(layer, x, y) === 948) {
+            if (this.getTile(x, y, layer) === 948) {
                 return true
             }
         }
@@ -51,9 +74,7 @@ export default class Map {
         return false
     }
 
-    draw() {
-        const screen = DeltaScreen
-
+    draw(screen = DeltaScreen) {
         for (let x = 0; x < this.width; x++) {
             for (let y = 0; y < this.height; y++) {
                 const tx = x * this.tileset.totalWidth

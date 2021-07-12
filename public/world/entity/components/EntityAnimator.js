@@ -2,7 +2,7 @@ import Camera from '../../../graphics/Camera'
 import DeltaScreen from '../../../graphics/DeltaScreen'
 
 export default class EntityAnimator {
-    // running
+    // playing
     // position
     // x
     // y
@@ -11,7 +11,7 @@ export default class EntityAnimator {
     // fps
 
     constructor(position, tileset, y, fps = 1) {
-        this.running = true
+        this.playing = true
         this.position = position
         this.x = 0
         this.y = y
@@ -21,7 +21,7 @@ export default class EntityAnimator {
     }
 
     draw() {
-        if (this.running) {
+        if (this.playing) {
             this.frameCount += DeltaScreen.p5Sketch.deltaTime
             if (this.frameCount >= 1000 / this.fps) {
                 this.frameCount -= 1000 / this.fps

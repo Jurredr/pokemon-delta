@@ -1,4 +1,5 @@
 import World from '../../World'
+import Direction from '../../components/Direction'
 
 export default class EntityMovement {
     // animator
@@ -7,24 +8,29 @@ export default class EntityMovement {
     // initialImgOffsetX
     // initialImgOffsetY
     // moving
+    // frozen
+    // facing
 
     constructor(animator, position) {
         this.animator = animator
-        this.animator.running = false
+        this.animator.playing = false
         this.position = position
         this.speed = 128
         this.initialImgOffsetX = position.imgOffsetX
         this.initialImgOffsetY = position.imgOffsetY
         this.moving = false
+        this.frozen = false
+        this.facing = Direction.fromAnimatorY(this.animator.y)
     }
 
     move(x, y) {
-        if (this.moving) return
+        if (this.moving || this.frozen) return
 
         if (y > 0) this.animator.y = 0
         if (x < 0) this.animator.y = 1
         if (x > 0) this.animator.y = 2
         if (y < 0) this.animator.y = 3
+        this.facing = Direction.fromAnimatorY(this.animator.y)
 
         const newX = this.position.x + x
         const newY = this.position.y + y
@@ -47,12 +53,12 @@ export default class EntityMovement {
         this.position.imgOffsetY -= y * 32
 
         this.moving = true
-        this.animator.running = true
+        this.animator.playing = true
     }
 
     update(deltaTime) {
         if (!this.moving) {
-            this.animator.running = false
+            this.animator.playing = false
             this.animator.x = 0
         }
 

@@ -69,6 +69,8 @@ function setup() {
     // Block resizing
     blockResizing(p5Instance)
 
-    // Call resize to correct zoom
-    window.dispatchEvent(new Event('resize'))
+    setTimeout(() => {
+        // Call resize to correct zoom
+        window.dispatchEvent(new Event('resize'))
+    }, 5)
 }

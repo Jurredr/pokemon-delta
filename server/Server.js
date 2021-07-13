@@ -34,7 +34,7 @@ export default class Server {
         this.io.on('connection', (socket) => {
             this.callListeners(socket)
         })
-    } 
+    }
 
     // Call all event listeners
     callListeners(socket) {

@@ -1,7 +1,7 @@
 export default class PlayerConnection {
-    constructor(socket, uuid, name) {
+    constructor(socket, id, name) {
         this.socket = socket
-        this.uuid = uuid
+        this.id = id
         this.name = name
     }
 }

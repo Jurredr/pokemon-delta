@@ -1,6 +1,4 @@
 import p5 from 'p5'
-import io from 'socket.io-client'
-
 import PlayerLoginPacket from '../common/packet/PlayerLoginPacket'
 
 import blockResizing from './util/resize-blocker'
@@ -14,53 +12,63 @@ import Map from './world/map/Map'
 import Tileset from './graphics/Tileset'
 
 import assets from './assets/**/*.*'
+import Client from './Client'
 
 // Block internet explorer
 blockIE()
 
-// Setup Socket.io
-const name = prompt('Username:')
+// Init the client
+const username = prompt('Username:')
+Client.init(setup)
 
-const socket = io()
+function setup() {
+    Client.emit(
+        'player:login',
+        new PlayerLoginPacket(Client.socket.id, username)
+    )
 
-// Really not final uuid generation, eventually it will come from the login system
-const uuid = Math.random().toString(36).substring(7)
-socket.emit('player:login', new PlayerLoginPacket(uuid, name))
+    // Initialize P5
+    const p5Instance = new p5((p5Sketch) => {
+        p5Sketch.setup = () => {
+            p5Sketch.frameRate(60)
 
-// Initialize P5
-const p5Instance = new p5((p5Sketch) => {
-    p5Sketch.setup = () => {
-        p5Sketch.frameRate(60)
+            // Set up the screen
+            DeltaScreen.init(p5Sketch)
+            DeltaScreen.zoom *= window.devicePixelRatio
 
-        // Set up the screen
-        DeltaScreen.init(p5Sketch)
-        DeltaScreen.zoom *= window.devicePixelRatio
-        window.onresize()
+            // Initialize player & their world
+            World.init(new Map(testmap))
+            const playerTileset = new Tileset(
+                assets.img.entities.boy_run.png,
+                32,
+                48
+            )
 
-        // Initialize player & their world
-        World.init(new Map(testmap))
-        const playerTileset = new Tileset(
-            assets.img.entities.boy_run.png,
-            32,
-            48
-        )
-        const player = new PlayerEntity('testID', playerTileset)
-        World.entities.push(player)
+            const player = new PlayerEntity(
+                Client.socket.id,
+                username,
+                playerTileset
+            )
+            World.spawnEntity(player)
 
-        // Initialize camera
-        Camera.init(10, 0, player)
-    }
+            // Initialize camera
+            Camera.init(10, 0, player)
+        }
 
-    p5Sketch.draw = () => {
-        const deltaTime = p5Sketch.deltaTime
+        p5Sketch.draw = () => {
+            const deltaTime = p5Sketch.deltaTime
 
-        World.update(deltaTime)
-        p5Sketch.scale(DeltaScreen.zoom)
+            World.update(deltaTime)
+            p5Sketch.scale(DeltaScreen.zoom)
 
-        DeltaScreen.draw()
-        World.draw()
-    }
-})
+            DeltaScreen.draw()
+            World.draw()
+        }
+    })
 
-// Block resizing
-blockResizing(p5Instance)
+    // Block resizing
+    blockResizing(p5Instance)
+
+    // Call resize to correct zoom
+    window.dispatchEvent(new Event('resize'))
+}

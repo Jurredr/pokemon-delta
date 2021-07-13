@@ -26,7 +26,7 @@ const Client = {
                 'spawned: ' +
                     playerSpawnPacket.playerId +
                     ' | ' +
-                    playerSpawnPacket.mapName 
+                    playerSpawnPacket.mapName
             )
             const playerTileset = new Tileset(
                 assets.img.entities.boy_run.png,

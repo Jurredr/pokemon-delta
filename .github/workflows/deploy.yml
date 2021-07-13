@@ -1,0 +1,39 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Deploy
+
+# Controls when the workflow will run
+on:
+    # Triggers the workflow on push or pull request events but only for the master branch
+    push:
+        branches: [ master ]
+        paths:
+            - 'server/**/*'
+            - 'public/**/*'
+            - 'common/**/*'
+            - '**.js'
+            - 'package.json'
+            - 'yarn.lock'
+            - 'config.json'
+
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
+
+jobs:
+    Deploy:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Deploying...
+                uses: appleboy/ssh-action@master
+                with:
+                    host: ${{ secrets.SSHHOST }}
+                    username: ${{ secrets.SSHUSERNAME }}
+                    password: ${{ secrets.SSHPASSWORD }}
+                    script: |
+                        cd /home/delta/dev
+                        git reset --hard
+                        git pull
+                        yarn
+                        rm -rfd /home/delta/dev/dist
+                        yarn run build
+                        pm2 reload /home/delta/ecosystem.config.js --only dev

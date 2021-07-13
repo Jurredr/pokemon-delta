@@ -21,10 +21,10 @@ jobs:
                     username: ${{ secrets.SSHUSERNAME }}
                     password: ${{ secrets.SSHPASSWORD }}
                     script: |
-                        cd /home/delta/master
+                        cd /home/delta/dev
                         git reset --hard
                         git pull
                         yarn
-                        rm -rfd /home/delta/master/dist
+                        rm -rfd /home/delta/dev/dist
                         yarn run build
                         pm2 reload /home/delta/ecosystem.config.js --only dev

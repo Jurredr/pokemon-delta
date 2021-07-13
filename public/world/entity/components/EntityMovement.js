@@ -1,7 +1,12 @@
 import World from '../../World'
 import Direction from '../../components/Direction'
+import PlayerMovementPacket from '../../../../common/packet/PlayerMovementPacket'
+
+import Position from '../../components/Position'
+import Client from '../../../Client'
 
 export default class EntityMovement {
+    // entity
     // animator
     // position
     // speed
@@ -10,27 +15,28 @@ export default class EntityMovement {
     // moving
     // frozen
     // facing
+    // socket
 
-    constructor(animator, position) {
-        this.animator = animator
-        this.animator.playing = false
-        this.position = position
+    constructor(entity) {
+        this.entity = entity
+        this.entity.animator.playing = false
+        this.position = entity.position
         this.speed = 128
-        this.initialImgOffsetX = position.imgOffsetX
-        this.initialImgOffsetY = position.imgOffsetY
+        this.initialImgOffsetX = this.position.imgOffsetX
+        this.initialImgOffsetY = this.position.imgOffsetY
         this.moving = false
         this.frozen = false
-        this.facing = Direction.fromAnimatorY(this.animator.y)
+        this.facing = Direction.fromAnimatorY(this.entity.animator.y)
     }
 
     move(x, y) {
         if (this.moving || this.frozen) return
 
-        if (y > 0) this.animator.y = 0
-        if (x < 0) this.animator.y = 1
-        if (x > 0) this.animator.y = 2
-        if (y < 0) this.animator.y = 3
-        this.facing = Direction.fromAnimatorY(this.animator.y)
+        if (y > 0) this.entity.animator.y = 0
+        if (x < 0) this.entity.animator.y = 1
+        if (x > 0) this.entity.animator.y = 2
+        if (y < 0) this.entity.animator.y = 3
+        this.facing = Direction.fromAnimatorY(this.entity.animator.y)
 
         const newX = this.position.x + x
         const newY = this.position.y + y
@@ -46,6 +52,8 @@ export default class EntityMovement {
             return
         }
 
+        const initialPosition = new Position(this.position.x, this.position.y)
+
         this.position.x += x
         this.position.y += y
 
@@ -53,13 +61,16 @@ export default class EntityMovement {
         this.position.imgOffsetY -= y * 32
 
         this.moving = true
-        this.animator.playing = true
+        this.entity.animator.playing = true
+
+        // Emit the event
+        Client.emit('player:move', new PlayerMovementPacket(this.entity.id, 0, this.speed, initialPosition, this.position))
     }
 
     update(deltaTime) {
         if (!this.moving) {
-            this.animator.playing = false
-            this.animator.x = 0
+            this.entity.animator.playing = false
+            this.entity.animator.x = 0
         }
 
         const speed = (this.speed / 1000) * deltaTime

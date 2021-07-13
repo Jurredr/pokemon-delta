@@ -6,10 +6,12 @@ export default class PlayerMovementPacket {
      * @param {String} playerId
      * @param {number} x
      * @param {number} y
+     * @param {number} animatorY
      */
-    constructor(playerId, x, y) {
+    constructor(playerId, x, y, animatorY) {
         this.playerId = playerId
         this.x = x
         this.y = y
+        this.animatorY = animatorY
     }
 }

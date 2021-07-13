@@ -1,12 +1,19 @@
+import Position from '../../public/world/components/Position'
+import Map from '../../public/world/map/Map'
+
 // Sent by a client after logging in
 export default class PlayerLoginPacket {
     /**
-     * 
-     * @param {String} uuid 
-     * @param {String} name 
+     *
+     * @param {String} id
+     * @param {String} username
+     * @param {Map} currentMap
+     * @param {Position} position
      */
-    constructor(uuid, name) {
-        this.uuid = uuid
-        this.name = name
+    constructor(id, username, currentMap, position) {
+        this.id = id
+        this.username = username
+        this.currentMap = currentMap
+        this.position = position
     }
 }

@@ -13,6 +13,7 @@ import Tileset from './graphics/Tileset'
 
 import assets from './assets/**/*.*'
 import Client from './Client'
+import Position from './world/components/Position'
 
 // Block internet explorer
 blockIE()
@@ -22,11 +23,6 @@ const username = prompt('Username:')
 Client.init(setup)
 
 function setup() {
-    Client.emit(
-        'player:login',
-        new PlayerLoginPacket(Client.socket.id, username)
-    )
-
     // Initialize P5
     const p5Instance = new p5((p5Sketch) => {
         p5Sketch.setup = () => {
@@ -36,8 +32,22 @@ function setup() {
             DeltaScreen.init(p5Sketch)
             DeltaScreen.zoom *= window.devicePixelRatio
 
+            const map = new Map(testmap)
+            const position = new Position(4, 2)
+            position.imgOffsetY = -16
+
+            Client.emit(
+                'player:login',
+                new PlayerLoginPacket(
+                    Client.socket.id,
+                    username,
+                    map.name,
+                    position
+                )
+            )
+
             // Initialize player & their world
-            World.init(new Map(testmap))
+            World.init(map)
             const playerTileset = new Tileset(
                 assets.img.entities.boy_run.png,
                 32,
@@ -47,7 +57,8 @@ function setup() {
             const player = new PlayerEntity(
                 Client.socket.id,
                 username,
-                playerTileset
+                playerTileset,
+                position
             )
             World.spawnEntity(player)
 

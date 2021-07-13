@@ -1,5 +1,4 @@
 import Entity from './Entity'
-import Position from '../components/Position'
 import EntityAnimator from './components/EntityAnimator'
 import EntityMovement from './components/EntityMovement'
 import PlayerMovementController from '../../controller/PlayerMovementController'
@@ -13,11 +12,10 @@ export default class PlayerEntity extends Entity {
     // movement
     // movementController
 
-    constructor(id, username, tileset) {
-        super(id, EntityType.PLAYER, true, new Position(4, 2))
+    constructor(id, username, tileset, position) {
+        super(id, EntityType.PLAYER, true, position)
 
         this.username = username
-        this.position.imgOffsetY = -16
 
         this.animator = new EntityAnimator(this.position, tileset, 0, 8)
         this.movement = new EntityMovement(this)

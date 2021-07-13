@@ -26,20 +26,22 @@ const Client = {
                 'spawned: ' +
                     playerSpawnPacket.playerId +
                     ' | ' +
-                    playerSpawnPacket.mapName
+                    playerSpawnPacket.mapName 
             )
             const playerTileset = new Tileset(
                 assets.img.entities.boy_run.png,
                 32,
                 48
             )
-            World.entities.push(
-                new PlayerEntity(
-                    playerSpawnPacket.playerId,
-                    'username',
-                    playerTileset
-                )
+            const player = new PlayerEntity(
+                playerSpawnPacket.playerId,
+                'username',
+                playerTileset,
+                playerSpawnPacket.position
             )
+            player.animator.y = playerSpawnPacket.animatorY
+
+            World.entities.push(player)
         })
 
         this.socket.on('player:despawn', (playerDespawnPacket) => {

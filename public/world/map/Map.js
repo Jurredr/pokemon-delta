@@ -16,7 +16,7 @@ export default class Map {
         // The name of the map
         this.name = mapData.name
 
-        // Array of tilesets to use
+        // Tileset to use
         this.tileset = new Tileset(
             mapData.tileset.src,
             mapData.tileset.totalWidth,

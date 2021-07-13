@@ -66,7 +66,12 @@ export default class EntityMovement {
             // Emit the event
             Client.emit(
                 'player:move',
-                new PlayerMovementPacket(this.entity.id, x, y, this.entity.animator.y)
+                new PlayerMovementPacket(
+                    this.entity.id,
+                    x,
+                    y,
+                    this.entity.animator.y
+                )
             )
         }
     }
@@ -101,7 +106,10 @@ export default class EntityMovement {
         // Emit the event
         Client.emit(
             'player:update-offset',
-            new PlayerUpdateOffsetPacket(this.position.imgOffsetX, this.position.imgOffsetY)
+            new PlayerUpdateOffsetPacket(
+                this.position.imgOffsetX,
+                this.position.imgOffsetY
+            )
         )
     }
 }

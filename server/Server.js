@@ -1,9 +1,9 @@
 import express from 'express'
-import mongoose from 'mongoose'
 import io from 'socket.io'
 import onDisconnect from './listener/DisconnectListener'
 import onPlayerLogin from './listener/PlayerLoginListener'
 import onPlayerMove from './listener/PlayerMoveListener'
+import onPlayerSpawn from './listener/PlayerSpawnListener'
 
 export default class Server {
     // server
@@ -37,7 +37,8 @@ export default class Server {
     // Call all event listeners
     callListeners(socket) {
         onPlayerLogin(socket, this.players)
-        onPlayerMove(socket)
+        onPlayerSpawn(socket)
+        onPlayerMove(socket, this.players)
         onDisconnect(socket, this.players)
     }
 }

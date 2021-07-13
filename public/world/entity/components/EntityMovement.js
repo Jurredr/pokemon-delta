@@ -4,6 +4,7 @@ import PlayerMovementPacket from '../../../../common/packet/PlayerMovementPacket
 
 import Position from '../../components/Position'
 import Client from '../../../Client'
+import PlayerUpdateOffsetPacket from '../../../../common/packet/PlayerUpdateOffsetPacket'
 
 export default class EntityMovement {
     // entity
@@ -65,7 +66,7 @@ export default class EntityMovement {
             // Emit the event
             Client.emit(
                 'player:move',
-                new PlayerMovementPacket(this.entity.id, x, y)
+                new PlayerMovementPacket(this.entity.id, x, y, this.entity.animator.y)
             )
         }
     }
@@ -96,5 +97,11 @@ export default class EntityMovement {
             this.position.imgOffsetY = this.initialImgOffsetY
             this.moving = false
         }
+
+        // Emit the event
+        Client.emit(
+            'player:update-offset',
+            new PlayerUpdateOffsetPacket(this.position.imgOffsetX, this.position.imgOffsetY)
+        )
     }
 }

@@ -1,4 +1,5 @@
 import PlayerSpawnPacket from '../../common/packet/PlayerSpawnPacket'
+import ReqEntitiesPacket from '../../common/packet/ReqEntitiesPacket'
 import Client from '../Client'
 import Camera from '../graphics/Camera'
 import DeltaScreen from '../graphics/DeltaScreen'
@@ -12,7 +13,13 @@ const World = {
     // Initialize the world
     init(currentMap) {
         this.currentMap = currentMap
+
+        // Load all entities
         this.entities = []
+        Client.emit(
+            'player:req-entities',
+            new ReqEntitiesPacket(Client.socket.id, this.currentMap.name)
+        )
 
         // Create the render of the world
         this.worldRender = DeltaScreen.p5Sketch.createGraphics(
@@ -27,19 +34,31 @@ const World = {
         this.entities.push(entity)
 
         // Emit the spawn event
-        Client.emit('player:spawn', new PlayerSpawnPacket(entity.id, this.currentMap.name))
+        Client.emit(
+            'player:spawn',
+            new PlayerSpawnPacket(entity.id, this.currentMap.name, entity.position, entity.animator.y)
+        )
     },
 
     hasEntity(id) {
-        return this.entities.some(entity => entity.id === id)
+        return this.entities.some((entity) => entity.id === id)
     },
 
     // Change the current map
-    changeMap(currentMap) {
-        this.currentMap = currentMap
+    changeMap(entity, newMap) {
+        this.currentMap = newMap
         this.worldRender = DeltaScreen.p5Sketch.createGraphics(
-            currentMap.width * 32,
-            currentMap.height * 32
+            newMap.width * 32,
+            newMap.height * 32
+        )
+
+        // Emit the despawn event
+        Client.emit('player:despawn', new PlayerDespawnPacket(entity.id))
+
+        // Emit the spawn event
+        Client.emit(
+            'player:spawn',
+            new PlayerSpawnPacket(entity.id, this.currentMap.name, entity.position, entity.animator.y)
         )
     },
 

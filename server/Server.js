@@ -35,7 +35,7 @@ export default class Server {
             this.callListeners(socket)
         })
     }
- 
+
     // Call all event listeners
     callListeners(socket) {
         onPlayerLogin(socket, this.players)

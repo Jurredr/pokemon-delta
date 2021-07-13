@@ -1,3 +1,5 @@
+import PlayerSpawnPacket from '../../common/packet/PlayerSpawnPacket'
+import Client from '../Client'
 import Camera from '../graphics/Camera'
 import DeltaScreen from '../graphics/DeltaScreen'
 
@@ -19,6 +21,17 @@ const World = {
         )
 
         this.fullyDrawn = false
+    },
+
+    spawnEntity(entity) {
+        this.entities.push(entity)
+
+        // Emit the spawn event
+        Client.emit('player:spawn', new PlayerSpawnPacket(entity.id, this.currentMap.name))
+    },
+
+    hasEntity(id) {
+        return this.entities.some(entity => entity.id === id)
     },
 
     // Change the current map

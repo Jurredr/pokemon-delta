@@ -4,6 +4,8 @@ import onDisconnect from './listener/DisconnectListener'
 import onPlayerLogin from './listener/PlayerLoginListener'
 import onPlayerMove from './listener/PlayerMoveListener'
 import onPlayerSpawn from './listener/PlayerSpawnListener'
+import onPlayerUpdateOffset from './listener/PlayerUpdateOffsetListener'
+import onReqEntities from './listener/ReqEntitiesListener'
 
 export default class Server {
     // server
@@ -37,8 +39,10 @@ export default class Server {
     // Call all event listeners
     callListeners(socket) {
         onPlayerLogin(socket, this.players)
-        onPlayerSpawn(socket)
-        onPlayerMove(socket)
+        onPlayerSpawn(socket, this.players)
+        onPlayerUpdateOffset(socket, this.players)
+        onPlayerMove(socket, this.players)
+        onReqEntities(socket, this.players)
         onDisconnect(socket, this.players)
     }
 }

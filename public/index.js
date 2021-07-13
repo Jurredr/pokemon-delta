@@ -1,4 +1,8 @@
 import p5 from 'p5'
+import io from 'socket.io-client'
+
+import PlayerLoginPacket from '../common/packet/PlayerLoginPacket'
+
 import blockResizing from './util/resize-blocker'
 import blockIE from './util/ie-blocker'
 import DeltaScreen from './graphics/DeltaScreen'
@@ -13,6 +17,15 @@ import assets from './assets/**/*.*'
 
 // Block internet explorer
 blockIE()
+
+// Setup Socket.io
+const name = prompt('Username:')
+
+const socket = io()
+
+// Really not final uuid generation, eventually it will come from the login system
+const uuid = Math.random().toString(36).substring(7)
+socket.emit('player:login', new PlayerLoginPacket(uuid, name))
 
 // Initialize P5
 const p5Instance = new p5((p5Sketch) => {

@@ -1,6 +1,11 @@
-export default function onPlayerSpawn(socket) {
+import getPlayerFromProperty from "../util/player-from-property-util"
+
+export default function onPlayerSpawn(socket, players) {
     socket.on('player:spawn', (playerSpawnPacket) => {
-        console.log('\nspawned: ' + playerSpawnPacket.playerId + ' | ' + playerSpawnPacket.mapName)
+        const player = getPlayerFromProperty('socket', socket, players)
+        if (!player) return
+
+        player.position = playerSpawnPacket.position
         socket.broadcast.emit('player:spawn', playerSpawnPacket)
     })
 }

@@ -4,17 +4,17 @@ import PlayerDespawnPacket from '../../common/packet/PlayerDespawnPacket'
 export default function onDisconnect(socket, players) {
     socket.on('disconnect', () => {
         const player = getPlayerFromProperty('socket', socket, players)
-
-        // Remove from array
         if (!player) return
-        players.splice(players.indexOf(player))
+        
+        // Remove from array
+        players.splice(players.indexOf(player), 1)
 
         // Despawn the player
         socket.broadcast.emit('player:despawn', new PlayerDespawnPacket(player.id))
 
         console.log('\n-- players --')
         players.forEach((player) => {
-            console.log(player.name)
+            console.log(player.username + ' | ' + player.id)
         })
     })
 }

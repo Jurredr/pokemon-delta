@@ -38,7 +38,7 @@ export default class Server {
     callListeners(socket) {
         onPlayerLogin(socket, this.players)
         onPlayerSpawn(socket)
-        onPlayerMove(socket, this.players)
+        onPlayerMove(socket)
         onDisconnect(socket, this.players)
     }
 }

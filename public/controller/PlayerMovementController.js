@@ -66,16 +66,16 @@ export default class PlayerMovementController {
 
         switch (this.currentKey) {
             case KeyBinds.WALK_FORWARD:
-                this.movement.move(0, -1)
+                this.movement.move(0, -1, true)
                 break
             case KeyBinds.WALK_BACKWARD:
-                this.movement.move(0, 1)
+                this.movement.move(0, 1, true)
                 break
             case KeyBinds.WALK_LEFT:
-                this.movement.move(-1, 0)
+                this.movement.move(-1, 0, true)
                 break
             case KeyBinds.WALK_RIGHT:
-                this.movement.move(1, 0)
+                this.movement.move(1, 0, true)
                 break
         }
     }

@@ -1,21 +1,15 @@
-import Position from '../../public/world/components/Position'
-
 // Sent by a client everytime a player moves.
 // This is then forwarded to all the players in the same map.
 export default class PlayerMovementPacket {
     /**
      *
-     * @param {string} uuid
-     * @param {number} time
-     * @param {number} speed
-     * @param {Position} from
-     * @param {Position} to
+     * @param {String} playerId
+     * @param {number} x
+     * @param {number} y
      */
-    constructor(uuid, time, speed, from, to) {
-        this.uuid = uuid
-        this.time = time
-        this.speed = speed
-        this.from = from
-        this.to = to
+    constructor(playerId, x, y) {
+        this.playerId = playerId
+        this.x = x
+        this.y = y
     }
 }

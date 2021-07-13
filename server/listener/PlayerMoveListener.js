@@ -1,5 +1,5 @@
-export default function onPlayerMove(socket, players) {
+export default function onPlayerMove(socket) {
     socket.on('player:move', (playerMovementPacket) => {
-        console.log('moved')
+        socket.broadcast.emit('player:move', playerMovementPacket)
     })
 }

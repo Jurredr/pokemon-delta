@@ -69,6 +69,7 @@ function setup() {
     // Block resizing
     blockResizing(p5Instance)
 
+    // TODO: do this more consistently
     setTimeout(() => {
         // Call resize to correct zoom
         window.dispatchEvent(new Event('resize'))

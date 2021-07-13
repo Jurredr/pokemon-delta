@@ -29,7 +29,7 @@ export default class EntityMovement {
         this.facing = Direction.fromAnimatorY(this.entity.animator.y)
     }
 
-    move(x, y) {
+    move(x, y, emit) {
         if (this.moving || this.frozen) return
 
         if (y > 0) this.entity.animator.y = 0
@@ -52,8 +52,6 @@ export default class EntityMovement {
             return
         }
 
-        const initialPosition = new Position(this.position.x, this.position.y)
-
         this.position.x += x
         this.position.y += y
 
@@ -63,8 +61,13 @@ export default class EntityMovement {
         this.moving = true
         this.entity.animator.playing = true
 
-        // Emit the event
-        Client.emit('player:move', new PlayerMovementPacket(this.entity.id, 0, this.speed, initialPosition, this.position))
+        if (emit) {
+            // Emit the event
+            Client.emit(
+                'player:move',
+                new PlayerMovementPacket(this.entity.id, x, y)
+            )
+        }
     }
 
     update(deltaTime) {

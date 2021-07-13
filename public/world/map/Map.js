@@ -39,7 +39,6 @@ export default class Map {
             )
             this.entities.push(entityObject)
         })
-        console.log(this.entities)
 
         // BGM
         this.music = mapData.music

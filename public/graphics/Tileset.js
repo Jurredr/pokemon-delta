@@ -2,17 +2,17 @@ import DeltaScreen from './DeltaScreen'
 
 export default class Tileset {
     // image
-    // totalWidth
-    // totalHeight
+    // tileWidth
+    // tileHeight
 
     // Initialize the Tileset
-    constructor(file, totalWidth, totalHeight) {
+    constructor(file, tileWidth, tileHeight) {
         this.image = DeltaScreen.p5Sketch.loadImage(file, () => {
-            this.width = this.image.width / totalWidth
-            this.height = this.image.height / totalHeight
+            this.width = this.image.width / tileWidth
+            this.height = this.image.height / tileHeight
         })
-        this.totalWidth = totalWidth
-        this.totalHeight = totalHeight
+        this.tileWidth = tileWidth
+        this.tileHeight = tileHeight
     }
 
     // Draw a tile of the Tileset onto the screen
@@ -21,12 +21,12 @@ export default class Tileset {
             this.image,
             x,
             y,
-            this.totalWidth,
-            this.totalHeight,
-            tx * this.totalWidth,
-            ty * this.totalHeight,
-            this.totalWidth,
-            this.totalHeight
+            this.tileWidth,
+            this.tileHeight,
+            tx * this.tileWidth,
+            ty * this.tileHeight,
+            this.tileWidth,
+            this.tileHeight
         )
     }
 }

@@ -22,8 +22,8 @@ export default class Map {
         // Tileset to use
         this.tileset = new Tileset(
             mapData.tileset.src,
-            mapData.tileset.totalWidth,
-            mapData.tileset.totalHeight
+            mapData.tileset.tileWidth,
+            mapData.tileset.tileHeight
         )
 
         // Layout of the tiles
@@ -94,8 +94,8 @@ export default class Map {
     draw(screen = DeltaScreen) {
         for (let x = 0; x < this.width; x++) {
             for (let y = 0; y < this.height; y++) {
-                const tx = x * this.tileset.totalWidth
-                const ty = y * this.tileset.totalHeight
+                const tx = x * this.tileset.tileWidth
+                const ty = y * this.tileset.tileHeight
 
                 for (let layer = 0; layer < this.layout.length; layer++) {
                     const tile = this.getTile(x, y, layer)
@@ -116,8 +116,8 @@ export default class Map {
                     screen.rect(
                         tx,
                         ty,
-                        this.tileset.totalWidth,
-                        this.tileset.totalHeight
+                        this.tileset.tileWidth,
+                        this.tileset.tileHeight
                     )
                 }
             }

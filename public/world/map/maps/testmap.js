@@ -5,8 +5,8 @@ const testmap = {
     name: 'test',
     tileset: {
         src: assets.img.tilesets.outside.png,
-        totalWidth: 32,
-        totalHeight: 32,
+        tileWidth: 32,
+        tileHeight: 32,
     },
     layout: [
         [
@@ -34,9 +34,9 @@ const testmap = {
     ],
     music: {
         file: null,
-        volume: 1,
-        pitch: 1,
-        fade: 1,
+        volume: 1.0,
+        pitch: 1.0,
+        fade: 1.0,
     },
 }
 

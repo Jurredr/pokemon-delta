@@ -68,12 +68,12 @@ const World = {
         if (Camera.follow) {
             const follow = Camera.follow
             Camera.x =
-                follow.position.x * this.currentMap.tileset.totalWidth +
+                follow.position.x * this.currentMap.tileset.tileWidth +
                 follow.position.imgOffsetX -
                 DeltaScreen.scaledWidth() / 2 +
                 16
             Camera.y =
-                follow.position.y * this.currentMap.tileset.totalHeight +
+                follow.position.y * this.currentMap.tileset.tileHeight +
                 follow.position.imgOffsetY -
                 DeltaScreen.scaledHeight() / 2 +
                 16

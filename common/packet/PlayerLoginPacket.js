@@ -5,6 +5,7 @@ export default class PlayerLoginPacket {
      * @param {String} id
      * @param {String} username
      * @param {String} currentMap
+     * @param {Position} position
      */
     constructor(id, username, currentMap, position) {
         this.id = id

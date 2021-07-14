@@ -35,7 +35,7 @@ const Client = {
             )
             const player = new PlayerEntity(
                 playerSpawnPacket.playerId,
-                'username',
+                playerSpawnPacket.username,
                 playerTileset,
                 playerSpawnPacket.position
             )

@@ -15,6 +15,7 @@ export default function onReqEntities(socket, players) {
                     'player:spawn',
                     new PlayerSpawnPacket(
                         loopedPlayer.id,
+                        loopedPlayer.username,
                         reqEntitiesPacket.mapName,
                         loopedPlayer.position,
                         loopedPlayer.animatorY

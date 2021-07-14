@@ -39,7 +39,22 @@ const DeltaScreen = {
         sWidth = dWidth,
         sHeight = dHeight
     ) {
-        this.p5Sketch.image(img, dx, dy, dWidth, dHeight, sx, sy, sWidth, sHeight)
+        this.p5Sketch.image(
+            img,
+            dx,
+            dy,
+            dWidth,
+            dHeight,
+            sx,
+            sy,
+            sWidth,
+            sHeight
+        )
+    },
+
+    // Draw text
+    text(text, x, y) {
+        this.p5Sketch.text(text, x, y)
     },
 
     // Get the screen width with zoom factor

@@ -1,15 +1,16 @@
-import DeltaScreen from '../../graphics/DeltaScreen'
-import Tileset from '../../graphics/Tileset'
-import Position from '../components/Position'
-import Entity from '../entity/Entity'
+import DeltaScreen from '../graphics/DeltaScreen'
+import Tileset from '../graphics/Tileset'
+import Position from './components/Position'
+import Entity from './entity/Entity'
 
-import assets from '../../assets/**/*.*'
-import { Howl, Howler } from 'howler'
+import { Howl } from 'howler'
 
 export default class Map {
     // name
     // tileset
     // layout
+    // solid
+    // overlay
     // width
     // heigth
     // entities
@@ -28,6 +29,8 @@ export default class Map {
 
         // Layout of the tiles
         this.layout = mapData.layout
+        this.solid = mapData.solid
+        this.overlay = mapData.overlay
         this.width = this.layout[0][0].length
         this.height = this.layout[0].length
 
@@ -49,16 +52,15 @@ export default class Map {
     }
 
     startMusicLoop() {
-        var sound = new Howl({
-            src: [assets.sound.bgm.route_201_day.mp3],
+        new Howl({
+            src: this.music.src,
             autoplay: true,
             loop: true,
-            volume: 1.0,
+            volume: this.music.volume,
             onend: function () {
                 console.log('BGM finished a cycle!')
             },
-        })
-        sound.play()
+        }).play()
     }
 
     getTile(x, y, layer) {
@@ -82,15 +84,11 @@ export default class Map {
     }
 
     isSolid(x, y) {
-        if (this.getTile(x, y, 1) !== 0) {
-            return true
+        for (let solidLayer = 0; solidLayer < this.solid.length; solidLayer++) {
+            if (this.getTile(x, y, this.solid[solidLayer]) !== 0) {
+                return true
+            }
         }
-        // for (let layer = 0; layer < this.layout.length; layer++) {
-        //     if (this.getTile(x, y, layer) === 948) {
-        //         return true
-        //     }
-        // }
-
         return false
     }
 

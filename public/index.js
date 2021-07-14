@@ -34,7 +34,10 @@ function setup() {
 
             const map = new Map(testmap)
             const position = new Position(4, 2)
-            position.imgOffsetY = -16
+            position.imgOffsetY = -96
+            position.imgOffsetX = -48
+            // position.imgOffsetY = -32
+            // position.imgOffsetX = -16
 
             Client.emit(
                 'player:login',
@@ -49,9 +52,9 @@ function setup() {
             // Initialize player & their world
             World.init(map)
             const playerTileset = new Tileset(
-                assets.img.entities.boy_run.png,
-                32,
-                48
+                assets.img.entities.ray.png,
+                128,
+                128
             )
 
             const player = new PlayerEntity(

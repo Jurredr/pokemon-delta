@@ -9,6 +9,7 @@ on:
             - '**.js'
             - 'package.json'
             - 'yarn.lock'
+    workflow_dispatch:            
 
 jobs:
     Deploy:

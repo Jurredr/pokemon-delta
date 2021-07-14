@@ -3,6 +3,9 @@ import Tileset from '../../graphics/Tileset'
 import Position from '../components/Position'
 import Entity from '../entity/Entity'
 
+import assets from '../../assets/**/*.*'
+import { Howl, Howler } from 'howler'
+
 export default class Map {
     // name
     // tileset
@@ -42,6 +45,20 @@ export default class Map {
 
         // BGM
         this.music = mapData.music
+        this.startMusicLoop()
+    }
+
+    startMusicLoop() {
+        var sound = new Howl({
+            src: [assets.sound.bgm.route_201_day.mp3],
+            autoplay: true,
+            loop: true,
+            volume: 1.0,
+            onend: function () {
+                console.log('BGM finished a cycle!')
+            },
+        })
+        sound.play()
     }
 
     getTile(x, y, layer) {
@@ -58,7 +75,8 @@ export default class Map {
 
     isEntity(x, y) {
         for (let entity of this.entities) {
-            if (entity.position.x === x && entity.position.y === y) return entity
+            if (entity.position.x === x && entity.position.y === y)
+                return entity
         }
         return null
     }

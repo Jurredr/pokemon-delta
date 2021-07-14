@@ -82,11 +82,14 @@ export default class Map {
     }
 
     isSolid(x, y) {
-        for (let layer = 0; layer < this.layout.length; layer++) {
-            if (this.getTile(x, y, layer) === 948) {
-                return true
-            }
+        if (this.getTile(x, y, 1) !== 0) {
+            return true
         }
+        // for (let layer = 0; layer < this.layout.length; layer++) {
+        //     if (this.getTile(x, y, layer) === 948) {
+        //         return true
+        //     }
+        // }
 
         return false
     }

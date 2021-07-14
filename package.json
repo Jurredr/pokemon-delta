@@ -11,8 +11,9 @@
         "public:watch": "parcel watch public/**/*.html --out-dir dist/public",
         "server:build": "babel server -d dist/server",
         "server:watch": "nodemon --exec babel-node server/index.js",
+        "common:build": "babel common -d dist/common",
         "watch": "concurrently \"yarn run public:watch\" \"yarn run server:watch\"",
-        "build": "yarn run public:build && yarn run server:build",
+        "build": "yarn run public:build && yarn run server:build && yarn run common:build",
         "start": "node dist/server/index.js"
     },
     "nodemonConfig": {

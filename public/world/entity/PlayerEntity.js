@@ -5,6 +5,7 @@ import PlayerMovementController from '../../controller/PlayerMovementController'
 import EntityType from './EntityType'
 import PlayerInteractController from '../../controller/PlayerInteractController'
 import Client from '../../Client'
+import PlayerAnimator from './components/PlayerAnimator'
 
 export default class PlayerEntity extends Entity {
     // username
@@ -17,7 +18,7 @@ export default class PlayerEntity extends Entity {
 
         this.username = username
 
-        this.animator = new EntityAnimator(this.position, tileset, 0, 8)
+        this.animator = new PlayerAnimator(this.position, tileset, 0, 8, username)
         this.movement = new EntityMovement(this)
 
         if (this.id === Client.socket.id) {

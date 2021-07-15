@@ -1,11 +1,11 @@
 import express from 'express'
 import io from 'socket.io'
-import onDisconnect from './listener/DisconnectListener'
-import onPlayerLogin from './listener/PlayerLoginListener'
-import onPlayerMove from './listener/PlayerMoveListener'
-import onPlayerSpawn from './listener/PlayerSpawnListener'
-import onPlayerUpdateOffset from './listener/PlayerUpdateOffsetListener'
-import onReqEntities from './listener/ReqEntitiesListener'
+import onDisconnect from './listeners/DisconnectListener'
+import onPlayerLogin from './listeners/PlayerLoginListener'
+import onPlayerMove from './listeners/PlayerMoveListener'
+import onPlayerSpawn from './listeners/PlayerSpawnListener'
+import onPlayerUpdateOffset from './listeners/PlayerUpdateOffsetListener'
+import onReqEntities from './listeners/ReqEntitiesListener'
 
 export default class Server {
     // server

@@ -12,7 +12,7 @@ import Map from './world/Map'
 import Tileset from './graphics/Tileset'
 
 import assets from './assets/**/*.*'
-import Client from './Client'
+import Client from './player/Client'
 import Position from './world/components/Position'
 import DeltaOverlay from './graphics/ui/DeltaOverlay'
 

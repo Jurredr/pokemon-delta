@@ -1,7 +1,7 @@
 import io from 'socket.io-client'
-import Tileset from './graphics/Tileset'
-import PlayerEntity from './world/entity/PlayerEntity'
-import World from './world/World'
+import Tileset from '../graphics/Tileset'
+import PlayerEntity from '../world/entity/PlayerEntity'
+import World from '../world/World'
 
 import assets from './assets/**/*.*'
 

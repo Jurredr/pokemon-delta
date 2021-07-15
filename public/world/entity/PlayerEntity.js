@@ -1,10 +1,9 @@
 import Entity from './Entity'
-import EntityAnimator from './components/EntityAnimator'
 import EntityMovement from './components/EntityMovement'
 import PlayerMovementController from '../../controller/PlayerMovementController'
 import EntityType from './EntityType'
 import PlayerInteractController from '../../controller/PlayerInteractController'
-import Client from '../../Client'
+import Client from '../../player/Client'
 import PlayerAnimator from './components/PlayerAnimator'
 
 export default class PlayerEntity extends Entity {

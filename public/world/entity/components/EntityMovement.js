@@ -2,8 +2,7 @@ import World from '../../World'
 import Direction from '../../components/Direction'
 import PlayerMovementPacket from '../../../../common/packet/PlayerMovementPacket'
 
-import Position from '../../components/Position'
-import Client from '../../../Client'
+import Client from '../../../player/Client'
 import PlayerUpdateOffsetPacket from '../../../../common/packet/PlayerUpdateOffsetPacket'
 
 export default class EntityMovement {

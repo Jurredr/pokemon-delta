@@ -1,6 +1,6 @@
 import PlayerSpawnPacket from '../../common/packet/PlayerSpawnPacket'
 import ReqEntitiesPacket from '../../common/packet/ReqEntitiesPacket'
-import Client from '../Client'
+import Client from '../player/Client'
 import Camera from '../graphics/Camera'
 import DeltaScreen from '../graphics/DeltaScreen'
 import PlayerEntity from './entity/PlayerEntity'

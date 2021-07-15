@@ -14,6 +14,7 @@ import Tileset from './graphics/Tileset'
 import assets from './assets/**/*.*'
 import Client from './Client'
 import Position from './world/components/Position'
+import DeltaOverlay from './graphics/ui/DeltaOverlay'
 
 // Block internet explorer
 blockIE()
@@ -65,6 +66,9 @@ function setup() {
 
             // Initialize camera
             Camera.init(10, 0, player)
+
+            // Generate the overlaying UI
+            DeltaOverlay.init()
         }
 
         p5Sketch.draw = () => {

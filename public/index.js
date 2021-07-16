@@ -4,7 +4,7 @@ import PlayerLoginPacket from '../common/packet/PlayerLoginPacket'
 import blockResizing from './util/resize-blocker'
 import blockIE from './util/ie-blocker'
 import DeltaScreen from './graphics/DeltaScreen'
-import testmap from './assets/data/maps/testmap'
+import map_town from './assets/data/maps/map_town'
 import World from './world/World'
 import PlayerEntity from './world/entity/PlayerEntity'
 import Camera from './graphics/Camera'
@@ -21,7 +21,7 @@ blockIE()
 
 // Init the client
 const username = prompt('Username:')
-Client.init(setup)
+Client.init(username, setup)
 
 function setup() {
     // Initialize P5
@@ -33,7 +33,7 @@ function setup() {
             DeltaScreen.init(p5Sketch)
             DeltaScreen.zoom *= window.devicePixelRatio
 
-            const map = new Map(testmap)
+            const map = new Map(map_town)
             const position = new Position(4, 2)
             position.imgOffsetX = 0
             position.imgOffsetY = -16

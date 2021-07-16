@@ -1,10 +1,11 @@
-import assets from '../../../assets/**/*.*'
+import outside from '../../img/tilesets/outside.png'
+import route_201_day from '../../sound/bgm/route_201_day.mp3'
 import EntityType from '../../../world/entity/EntityType'
 
-const testmap = {
+const map_test = {
     name: 'test',
     tileset: {
-        src: assets.img.tilesets.outside.png,
+        src: outside,
         tileWidth: 32,
         tileHeight: 32,
     },
@@ -35,10 +36,10 @@ const testmap = {
         },
     ],
     music: {
-        src: [assets.sound.bgm.route_201_day.mp3],
+        src: [route_201_day],
         volume: 1.0,
         fade: 1.0,
     },
 }
 
-export default testmap
+export default map_test

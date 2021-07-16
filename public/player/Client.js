@@ -2,15 +2,18 @@ import io from 'socket.io-client'
 import onPlayerDespawn from '../listeners/PlayerDespawnListener'
 import onPlayerMove from '../listeners/PlayerMoveListener'
 import onPlayerSpawn from '../listeners/PlayerSpawnListener'
+import PlayerData from './PlayerData'
 
 const Client = {
     socket: null,
+    playerData: null,
 
-    init(callback) {
+    init(username, callback) {
         this.socket = io()
         this.socket.on('connect', () => {
             callback()
         })
+        this.playerData = new PlayerData(username)
         this.registerListeners()
     },
 

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta -->
+    <meta charset="UTF-8">
+    <meta name="description" content="Pokémon Delta is a free to play in-browser Pokémon MMORPG. Explore and Discover the world of Pokémon together with trainers all over the world!">
+    <meta name="keywords" content="Pokémon, Pokemon, Delta, MMORPG, MMO, RPG, Free, Game, Play, Online, Multiplayer, Browser, Web, Game, Gaming">
+    <meta name="subject" content="Gaming">
+    <meta name="language" content="EN">
+    <meta name="author" content="Jurredr">
+
+    <!-- OpenGraph Meta -->
+    <meta name="og:locale" content="en_US">
+    <meta name="og:title" content="Pokémon Delta | Map Maker">
+    <meta name="og:description" content="Pokémon Delta is a free to play in-browser Pokémon MMORPG. Explore and Discover the world of Pokémon together with trainers all over the world!">
+    <meta name="og:url" content="https://dev.pokedelta.tk/">
+
+    <title>Pokémon Delta | Map Maker</title>
+
+    <script src="libraries/filesaver.js"></script>
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.dom.min.js"></script>
+
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  
+  <body>
+    <div id="intro">
+      <img src="res/PokemonDeltaLogo.png" alt="Logo">
+      <p>Map Maker</p>
+    </div>
+
+    <hr>
+
+    <div id="size"></div>
+
+    <div id="builder">
+      <div id="tileset">
+        <div id="tileset-title">
+          <p>Tileset</p>
+        </div>
+        <div id="tileset-content"></div>
+      </div>
+
+      <div id="studio">
+        <div id="studio-tools">
+          <img src="res/brush.png" alt="Brush" id="tool-brush">
+          <img src="res/bucket.png" alt="Bucket" id="tool-bucket">
+          <img src="res/dropper.png" alt="Dropper" id="tool-dropper">
+          <img src="res/entity.png" alt="Entity" id="tool-entity">
+        </div>
+        <div id="main-canvas"></div>
+      </div>
+
+      <div id="layers">
+        <div id="layers-title">
+          <p>Layers</p>
+        </div>
+        <div id="layers-content"></div>
+        <div id="layers-control">
+          <div id="layers-control-add">
+            <p>+</p>
+          </div>
+          <div id="layers-control-remove">
+            <p>-</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="entity">
+      <p>Entity Editor</p>
+      <div id="entity-builder"></div>
+    </div>
+
+    <div id="meta"> 
+      <p>Meta [name, spawnX, spawnY]</p>
+      <div id="meta-main"></div>
+      <p>Music [name, volume, fade]</p>
+      <div id="meta-music"></div>
+    </div>
+  </body>
+</html>

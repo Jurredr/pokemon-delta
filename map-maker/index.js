@@ -66,22 +66,23 @@ window.onbeforeunload = function () {
 }
 
 window.onload = function () {
-    // Add layer0 to layer pane
-    for (let i = 0; i < 12; i++) {
-        addLayerToWindow(i)
-    }
+    // Add layer0 to layer pane and select it
+    addLayerToWindow(0)
+    document.getElementById('select-layer-0').click()
 
     // Event for adding a new layer
     document
         .getElementById('layers-control-add')
-        .addEventListener('click', (e) => {
-            layout.push(generateEmptyLayer())
+        .addEventListener('click', () => {
+            addLayer()
         })
 
     // Event for removing the current layer
     document
         .getElementById('layers-control-remove')
-        .addEventListener('click', (e) => {})
+        .addEventListener('click', () => {
+            removeLayer(currentLayer)
+        })
 }
 
 // Setup
@@ -474,18 +475,55 @@ function generateEmptyLayer(width = mapWidth, height = mapHeight) {
     return layer
 }
 
-function removeLayer(index) {}
+function removeLayer(index) {
+    if (index > 0) {
+        document.getElementById(`select-layer-${index - 1}`).click()
+        document
+            .getElementById(`select-layer-${index}`)
+            .parentElement.parentElement.remove()
 
-function addLayer() {}
+        // Remove layer from layout array
+        mapObject.layout.splice(index, 1)
+
+        // Update higher layers if exist
+        if (mapObject.layout.length >= Number(index) + 1) {
+            for (layer = Number(index) + 1; layer < mapObject.layout.length + 1; layer++) {
+                const el = document.getElementById(`layers-table-row-${layer}`)
+                if (el.classList.contains('layers-table-row-odd')) {
+                    el.classList.remove('layers-table-row-odd')
+                    el.classList.add('layers-table-row-even')
+                } else {
+                    el.classList.remove('layers-table-row-even')
+                    el.classList.add('layers-table-row-odd')
+                }
+                el.id = `layers-table-row-${layer - 1}`        
+                el.children[0].id = `select-layer-${layer - 1}`        
+                el.children[1].innerText = `Layer ${layer - 1}`
+            }
+        }
+    }
+}
+
+function addLayer() {
+    addLayerToWindow(mapObject.layout.length)
+    mapObject.layout.push(generateEmptyLayer())
+}
 
 function addLayerToWindow(index) {
     const tr = document.createElement('tr')
     tr.innerHTML = `
-        <td id="layers-table-row" class="${
+        <td id="layers-table-row-${index}" class="layers-table-row ${
             index % 2 === 0 ? 'layers-table-row-even' : 'layers-table-row-odd'
         }">
-            <input type="radio" name="selected-layer" id="${index}">
+            <input type="radio" name="selected-layer" id="select-layer-${index}">
             <p>Layer ${index}</p>
         </td>`
     document.getElementById('layers-table-body').appendChild(tr)
+
+    tr.addEventListener('click', () => {
+        currentLayer = tr.innerHTML.substring(
+            tr.innerHTML.indexOf('Layer ') + 6,
+            tr.innerHTML.indexOf('Layer ') + 7
+        )
+    })
 }

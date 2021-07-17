@@ -130,17 +130,17 @@ input {
     flex-direction: column;
 }
 
-#layers-table-body > tr > #layers-table-row {
+#layers-table-body > tr > .layers-table-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-#layers-table-body > tr > #layers-table-row > p {
+#layers-table-body > tr > .layers-table-row > p {
     margin-right: 2rem;
 }
 
-#layers-table-body > tr > #layers-table-row > input {
+#layers-table-body > tr > .layers-table-row > input {
     margin-left: 2rem;
 }
 

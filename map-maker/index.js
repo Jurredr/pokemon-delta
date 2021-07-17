@@ -27,6 +27,7 @@ let mapObject = {
     },
 }
 
+// Editor data
 let mapWidth = 25
 let mapHeight = 20
 
@@ -40,7 +41,9 @@ let currentTile = {
 let tilesetImg
 let tilesetOffset = 0
 
-// User interaction
+let dragging = false
+
+// User IO
 let tilesetCanvas
 
 let widthInput
@@ -178,6 +181,9 @@ function setup() {
 function draw() {
     background(0)
 
+    // Draw new tiles if still dragging
+    drawTile()
+
     // Drawn tiles
     if (mapObject.layout.length > 0 && tilesetImg) {
         for (let layer = 0; layer < mapObject.layout.length; layer++) {
@@ -212,14 +218,25 @@ function draw() {
 }
 
 function mousePressed() {
+    dragging = true
+}
+
+function drawTile() {
     var x = mouseX - (mouseX % 32)
     var y = mouseY - (mouseY % 32)
-
-    if (mouseOnCanvas(x, y, mouseX, mouseY, canvas.width, canvas.height)) {
+    if (mouseOnCanvas(x, y, mouseX, mouseY, canvas.width, canvas.height) && dragging) {
         if (tilesetImg) {
             mapObject.layout[currentLayer][y / 32][x / 32] = currentTile.index
         }
     }
+}
+
+function mouseReleased() {
+    dragging = false
+}
+
+function mouseOut() {
+    dragging = false
 }
 
 function makeCanvas(width, height) {

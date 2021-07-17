@@ -43,6 +43,9 @@ let tilesetOffset = 0
 
 let dragging = false
 
+const tools = ['tool-brush', 'tool-eraser', 'tool-dropper']
+let selectedTool = 0
+
 // User IO
 let tilesetCanvas
 
@@ -65,6 +68,7 @@ window.onbeforeunload = function () {
     return 'Map data might be lost if you refresh, are you sure?'
 }
 
+// Register document event listeners
 window.onload = function () {
     // Add layer0 to layer pane and select it
     addLayerToWindow(0)
@@ -83,6 +87,35 @@ window.onload = function () {
         .addEventListener('click', () => {
             removeLayer(currentLayer)
         })
+
+    // Events for selecting tools
+    document.getElementById('tool-brush').addEventListener('click', () => {
+        currentTile.x = 0
+        currentTile.y = 0
+        currentTile.index = 0
+        selectedTool = 0
+        colorizeTool()
+    })
+
+    document.getElementById('tool-eraser').addEventListener('click', () => {
+        currentTile.x = -2
+        currentTile.y = 0
+        currentTile.index = -1
+        selectedTool = 1
+        colorizeTool()
+    })
+
+    document.getElementById('tool-bucket').addEventListener('click', () => {
+        if (tilesetImg && selectedTool === 0) {
+            for (let y = 0; y < mapObject.layout[currentLayer].length; y++) {
+                mapObject.layout[currentLayer][y] = mapObject.layout[
+                    currentLayer
+                ][y].map(() => {
+                    return currentTile.index
+                })
+            }
+        }
+    })
 }
 
 // Setup
@@ -210,7 +243,7 @@ function draw() {
             for (let y = 0; y < mapObject.layout[layer].length; y++) {
                 for (let x = 0; x < mapObject.layout[layer][y].length; x++) {
                     const tileIndex = mapObject.layout[layer][y][x]
-                    if (tileIndex !== 0) {
+                    if (tileIndex !== -1) {
                         image(
                             tilesetImg,
                             x * 32,
@@ -296,7 +329,7 @@ function makeCanvas(width, height) {
         // New array is larger
         const fillerArray = []
         for (let i = 0; i < width; i++) {
-            fillerArray.push(0)
+            fillerArray.push(-1)
         }
         for (let layer = 0; layer < mapObject.layout.length; layer++) {
             // Resize the width
@@ -305,7 +338,7 @@ function makeCanvas(width, height) {
                     mapObject.layout[layer][y] = resizeArray(
                         mapObject.layout[layer][y],
                         width,
-                        0
+                        -1
                     )
                 }
             }
@@ -425,6 +458,7 @@ let tilesetSketch = function (sketch) {
                 sketch.height
             )
         ) {
+            document.getElementById('tool-brush').click()
             currentTile.x = x / 32
             currentTile.y = y / 32
             currentTile.index = currentTile.x + currentTile.y * 8
@@ -449,7 +483,7 @@ let tilesetSketch = function (sketch) {
             ) &&
             !(
                 Math.abs(tilesetOffset + Math.sign(-event.deltaY) * 32) >=
-                    tilesetImg.height - (19 * 32) ||
+                    tilesetImg.height - 19 * 32 ||
                 tilesetOffset + Math.sign(-event.deltaY) * 32 >= 0
             )
         ) {
@@ -476,13 +510,35 @@ function generateEmptyLayer(width = mapWidth, height = mapHeight) {
     const layer = []
     const mapRow = []
     for (let x = 0; x < width; x++) {
-        mapRow.push(0)
+        mapRow.push(-1)
     }
     for (let y = 0; y < height; y++) {
         layer.push([...mapRow])
     }
     return layer
 }
+
+function colorizeTool() {
+    for (tool in tools) {
+        if (tools[selectedTool] === tools[tool]) {
+            document
+                .getElementById(tools[tool])
+                .classList.remove('tool-disabled')
+        } else {
+            if (
+                !document
+                    .getElementById(tools[tool])
+                    .classList.contains('tool-disabled')
+            ) {
+                document
+                    .getElementById(tools[tool])
+                    .classList.add('tool-disabled')
+            }
+        }
+    }
+}
+
+// Layer util functions
 
 function removeLayer(index) {
     if (index > 0) {

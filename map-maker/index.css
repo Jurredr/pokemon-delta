@@ -83,11 +83,10 @@ input {
 
 #studio-tools > img {
     width: 3rem;
+    cursor: pointer;
 }
 
-#tool-bucket,
-#tool-dropper,
-#tool-entity {
+.tool-disabled {
     filter: grayscale(100%);
 }
 

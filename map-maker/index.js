@@ -65,6 +65,25 @@ window.onbeforeunload = function () {
     return 'Map data might be lost if you refresh, are you sure?'
 }
 
+window.onload = function () {
+    // Add layer0 to layer pane
+    for (let i = 0; i < 12; i++) {
+        addLayerToWindow(i)
+    }
+
+    // Event for adding a new layer
+    document
+        .getElementById('layers-control-add')
+        .addEventListener('click', (e) => {
+            layout.push(generateEmptyLayer())
+        })
+
+    // Event for removing the current layer
+    document
+        .getElementById('layers-control-remove')
+        .addEventListener('click', (e) => {})
+}
+
 // Setup
 function setup() {
     pixelDensity(1)
@@ -224,7 +243,10 @@ function mousePressed() {
 function drawTile() {
     var x = mouseX - (mouseX % 32)
     var y = mouseY - (mouseY % 32)
-    if (mouseOnCanvas(x, y, mouseX, mouseY, canvas.width, canvas.height) && dragging) {
+    if (
+        mouseOnCanvas(x, y, mouseX, mouseY, canvas.width, canvas.height) &&
+        dragging
+    ) {
         if (tilesetImg) {
             mapObject.layout[currentLayer][y / 32][x / 32] = currentTile.index
         }
@@ -242,15 +264,7 @@ function mouseOut() {
 function makeCanvas(width, height) {
     // Initialize array
     if (mapObject.layout.length === 0) {
-        const layer0 = []
-        const mapRow = []
-        for (let x = 0; x < width; x++) {
-            mapRow.push(0)
-        }
-        for (let y = 0; y < height; y++) {
-            layer0.push([...mapRow])
-        }
-        mapObject.layout = [layer0]
+        mapObject.layout = [generateEmptyLayer(width, height)]
         console.log(mapObject.layout)
     }
 
@@ -446,4 +460,32 @@ function resizeArray(arr, newSize, defaultValue) {
         ...arr,
         ...Array(Math.max(newSize - arr.length, 0)).fill(defaultValue),
     ]
+}
+
+function generateEmptyLayer(width = mapWidth, height = mapHeight) {
+    const layer = []
+    const mapRow = []
+    for (let x = 0; x < width; x++) {
+        mapRow.push(0)
+    }
+    for (let y = 0; y < height; y++) {
+        layer.push([...mapRow])
+    }
+    return layer
+}
+
+function removeLayer(index) {}
+
+function addLayer() {}
+
+function addLayerToWindow(index) {
+    const tr = document.createElement('tr')
+    tr.innerHTML = `
+        <td id="layers-table-row" class="${
+            index % 2 === 0 ? 'layers-table-row-even' : 'layers-table-row-odd'
+        }">
+            <input type="radio" name="selected-layer" id="${index}">
+            <p>Layer ${index}</p>
+        </td>`
+    document.getElementById('layers-table-body').appendChild(tr)
 }

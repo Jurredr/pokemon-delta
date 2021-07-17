@@ -13,6 +13,7 @@ export default class Map {
     // overlay
     // width
     // heigth
+    // spawn
     // entities
     // music
 
@@ -33,6 +34,7 @@ export default class Map {
         this.overlay = mapData.overlay
         this.width = this.layout[0][0].length
         this.height = this.layout[0].length
+        this.spawn = mapData.spawn
 
         // Array of static entities
         this.entities = []
@@ -85,7 +87,7 @@ export default class Map {
 
     isSolid(x, y) {
         for (let solidLayer = 0; solidLayer < this.solid.length; solidLayer++) {
-            if (this.getTile(x, y, this.solid[solidLayer]) !== 0) {
+            if (this.getTile(x, y, this.solid[solidLayer]) !== -1) {
                 return true
             }
         }
@@ -102,7 +104,7 @@ export default class Map {
                     const tile = this.getTile(x, y, layer)
 
                     // Don't draw empty tiles
-                    if (tile === 0) continue
+                    if (tile === -1) continue
 
                     const tileX = tile % this.tileset.width
                     const tileY = Math.floor(tile / this.tileset.width)

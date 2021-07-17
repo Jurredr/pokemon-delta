@@ -210,17 +210,19 @@ function draw() {
             for (let y = 0; y < mapObject.layout[layer].length; y++) {
                 for (let x = 0; x < mapObject.layout[layer][y].length; x++) {
                     const tileIndex = mapObject.layout[layer][y][x]
-                    image(
-                        tilesetImg,
-                        x * 32,
-                        y * 32,
-                        32,
-                        32,
-                        (tileIndex - Math.floor(tileIndex / 8) * 8) * 32,
-                        Math.floor(tileIndex / 8) * 32,
-                        32,
-                        32
-                    )
+                    if (tileIndex !== 0) {
+                        image(
+                            tilesetImg,
+                            x * 32,
+                            y * 32,
+                            32,
+                            32,
+                            (tileIndex - Math.floor(tileIndex / 8) * 8) * 32,
+                            Math.floor(tileIndex / 8) * 32,
+                            32,
+                            32
+                        )
+                    }
                 }
             }
         }
@@ -487,7 +489,11 @@ function removeLayer(index) {
 
         // Update higher layers if exist
         if (mapObject.layout.length >= Number(index) + 1) {
-            for (layer = Number(index) + 1; layer < mapObject.layout.length + 1; layer++) {
+            for (
+                layer = Number(index) + 1;
+                layer < mapObject.layout.length + 1;
+                layer++
+            ) {
                 const el = document.getElementById(`layers-table-row-${layer}`)
                 if (el.classList.contains('layers-table-row-odd')) {
                     el.classList.remove('layers-table-row-odd')
@@ -496,8 +502,8 @@ function removeLayer(index) {
                     el.classList.remove('layers-table-row-even')
                     el.classList.add('layers-table-row-odd')
                 }
-                el.id = `layers-table-row-${layer - 1}`        
-                el.children[0].id = `select-layer-${layer - 1}`        
+                el.id = `layers-table-row-${layer - 1}`
+                el.children[0].id = `select-layer-${layer - 1}`
                 el.children[1].innerText = `Layer ${layer - 1}`
             }
         }
@@ -513,8 +519,8 @@ function addLayerToWindow(index) {
     const tr = document.createElement('tr')
     tr.innerHTML = `
         <td id="layers-table-row-${index}" class="layers-table-row ${
-            index % 2 === 0 ? 'layers-table-row-even' : 'layers-table-row-odd'
-        }">
+        index % 2 === 0 ? 'layers-table-row-even' : 'layers-table-row-odd'
+    }">
             <input type="radio" name="selected-layer" id="select-layer-${index}">
             <p>Layer ${index}</p>
         </td>`

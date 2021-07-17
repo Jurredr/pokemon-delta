@@ -436,7 +436,9 @@ let tilesetSketch = function (sketch) {
         const x = sketch.mouseX - (sketch.mouseX % 32)
         const y = sketch.mouseY - (sketch.mouseY % 32)
 
+        console.log(tilesetOffset)
         if (
+            tilesetImg &&
             mouseOnCanvas(
                 x,
                 y,
@@ -444,9 +446,14 @@ let tilesetSketch = function (sketch) {
                 sketch.mouseY,
                 sketch.width,
                 sketch.height
+            ) &&
+            !(
+                Math.abs(tilesetOffset + Math.sign(-event.deltaY) * 32) >=
+                    tilesetImg.height - (19 * 32) ||
+                tilesetOffset + Math.sign(-event.deltaY) * 32 >= 0
             )
         ) {
-            tilesetOffset += Math.sign(-event.deltaY) * 64
+            tilesetOffset += Math.sign(-event.deltaY) * 32
         }
     }
 }

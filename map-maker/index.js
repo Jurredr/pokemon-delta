@@ -586,6 +586,8 @@ function addLayerToWindow(index) {
     }">
             <input type="radio" name="selected-layer" id="select-layer-${index}">
             <p>Layer ${index}</p>
+            <input type="checkbox" class="select-solid" name="select-solid-${index}" id="select-solid-${index}">
+            <input type="checkbox" class="select-overlay" name="select-overlay-${index}" id="select-overlay-${index}">
         </td>`
     document.getElementById('layers-table-body').appendChild(tr)
 

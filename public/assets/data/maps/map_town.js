@@ -2,7 +2,7 @@ import outside from '../../img/tilesets/outside.png'
 import route_29 from '../../sound/bgm/route_29.mp3'
 import EntityType from '../../../world/entity/EntityType'
 
-const testmap = {
+const map_town = {
     name: 'town',
     tileset: {
         src: outside,
@@ -52,4 +52,4 @@ const testmap = {
     },
 }
 
-export default testmap
+export default map_town

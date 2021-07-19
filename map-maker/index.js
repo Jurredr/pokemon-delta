@@ -442,6 +442,7 @@ let tilesetSketch = function (sketch) {
     }
 
     sketch.mousePressed = function () {
+        dragging = true
         const x = sketch.mouseX - (sketch.mouseX % 32)
         const y =
             sketch.mouseY -
@@ -489,6 +490,14 @@ let tilesetSketch = function (sketch) {
         ) {
             tilesetOffset += Math.sign(-event.deltaY) * 32
         }
+    }
+
+    sketch.mouseReleased = function () {
+        dragging = false
+    }
+
+    sketch.mouseOut = function () {
+        dragging = false
     }
 }
 tilesetCanvas = new p5(tilesetSketch, 'tileset-content')
@@ -542,7 +551,6 @@ function colorizeTool() {
 
 function removeLayer(index) {
     if (index > 0) {
-        document.getElementById(`select-layer-${index - 1}`).click()
         document
             .getElementById(`select-layer-${index}`)
             .parentElement.parentElement.remove()
@@ -569,6 +577,10 @@ function removeLayer(index) {
                 el.children[0].id = `select-layer-${layer - 1}`
                 el.children[1].innerText = `Layer ${layer - 1}`
             }
+
+            document.getElementById(`select-layer-${index}`).click()
+        } else {
+            document.getElementById(`select-layer-${index - 1}`).click()
         }
     }
 }

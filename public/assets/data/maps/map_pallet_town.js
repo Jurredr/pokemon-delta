@@ -1,6 +1,5 @@
-import Outside from '../../img/tilesets/Outside.png'
+import Outside from '../../img/tilesets/outside.png'
 import route_29 from '../../sound/bgm/route_29.mp3'
-import EntityType from '../../../world/entity/EntityType'
 
 const map_pallet_town = {
     name: 'pallet_town',

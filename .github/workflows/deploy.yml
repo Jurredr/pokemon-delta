@@ -22,7 +22,7 @@ jobs:
                     username: ${{ secrets.SSHUSERNAME }}
                     password: ${{ secrets.SSHPASSWORD }}
                     script: |
-                        cd var/www/pokedelta
+                        cd /var/www/pokedelta
                         git reset --hard
                         git pull
                         yarn

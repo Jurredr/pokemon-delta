@@ -5,4 +5,4 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 // Initialize the server
-new Server(process.env.PORT || 3000)
+new Server(process.env.PORT || 81)

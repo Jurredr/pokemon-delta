@@ -8,8 +8,8 @@
 
 <br/><br/>
 ## Project
-The project is currently **inactive**, as it was created with the intention of practicing with P5.js and web-sockets (Socket.io).
-Here are some brief reference images of the current game. Online functionalities are working, including username-tags, live movement, and joining/quiting. Next to this, map rendering, BGM handling, camera movement, player-control, and basic entitity management are all implemented.
+The project is currently **inactive**, as it was just created with the intention of practicing with P5.js and web-sockets (Socket.io).
+Here are some brief reference images of the current game. Online functionalities including live movement, joining/quiting, and username-tags are all implemented. Additionally, map rendering, BGM handling, camera movement, player-control, and basic entitity management are all functional.
 
 <br/><br/>
 <p align="center">
@@ -17,7 +17,7 @@ Here are some brief reference images of the current game. Online functionalities
   <img width="55%" height="55%" src="https://user-images.githubusercontent.com/62119716/130691523-2956cf5e-c84c-4cd9-ac2e-76a4cb068717.png" alt="Pokémon Delta" />
 </p>
 <p align="center">
-  Two players in a test map, showing nametags + a basic chat window on the right. Non collidable tiles have red borders.
+  Two players in a testing map, showing nametags + a basic chat window on the right. Non collidable tiles have red borders.
 </p>
 
 <br/><br/>
